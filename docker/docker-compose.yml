@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URL: postgresql://bean:Beandip1!@db:5432/beandb
+    depends_on:
+      - db
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: bean
+      POSTGRES_PASSWORD: Beandip1!
+      POSTGRES_DB: beandb
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
